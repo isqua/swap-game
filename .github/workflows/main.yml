@@ -20,6 +20,10 @@ jobs:
         run: npm ci
       - name: lint
         run: npm run lint
+      - name: check
+        run: npm run check
+      - name: test
+        run: npm run test
   audit:
     runs-on: ubuntu-latest
     steps:
