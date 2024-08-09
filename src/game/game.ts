@@ -28,22 +28,22 @@ const getDesiredIndex = (state: RootState, index: number) => {
 	return newIndex;
 };
 
-const canBeOccupied = (value: number): boolean => value === 0;
+const canBeOccupied = (state: RootState, index: number): boolean => state[index] === 0;
 
 export const move = (state: RootState, index: number): RootState => {
 	const newIndex = getDesiredIndex(state, index);
 
-	return canBeOccupied(state[newIndex]) ? swap(state, index, newIndex) : state;
+	return canBeOccupied(state, newIndex) ? swap(state, index, newIndex) : state;
 };
 
 const canMove = (state: RootState, index: number): boolean => {
-	if (canBeOccupied(state[index])) {
+	if (canBeOccupied(state, index)) {
 		return false;
 	}
 
 	const newIndex = getDesiredIndex(state, index);
 
-	return canBeOccupied(state[newIndex]);
+	return canBeOccupied(state, newIndex);
 };
 
 export const checkGameState = (state: RootState): GameState => {
