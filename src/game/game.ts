@@ -34,7 +34,7 @@ export const move = (state: RootState, index: number): RootState => {
 	return canBeOccupied(state, newIndex) ? swap(state, index, newIndex) : state;
 };
 
-const canMove = (state: RootState, index: number): boolean => {
+export const canMove = (state: RootState, index: number): boolean => {
 	if (canBeOccupied(state, index)) {
 		return false;
 	}

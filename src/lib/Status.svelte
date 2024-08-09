@@ -2,7 +2,6 @@
 	import type { GameState } from '../game';
 
 	export let state: GameState;
-	export let onRestart: () => void;
 </script>
 
 <div class="status">
@@ -18,9 +17,9 @@
 		</p>
 	{/if}
 
-	{#if state !== 'idle'}
-		<button type="button" on:click={onRestart}>Restart</button>
-	{/if}
+	<div class="actions">
+		<slot />
+	</div>
 </div>
 
 <style lang="css">
