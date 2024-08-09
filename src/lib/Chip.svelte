@@ -1,17 +1,34 @@
 <script lang="ts">
-	export let value;
+	import { flip } from 'svelte/animate';
+	import type { CrossfadeParams, TransitionConfig } from 'svelte/transition';
+
+	type TransitionCallback = (
+		node: HTMLElement,
+		params: CrossfadeParams & {
+			key: number;
+		}
+	) => () => TransitionConfig;
+
+	export let box: number[];
 	export let onClick;
+	export let send: TransitionCallback;
+	export let receive: TransitionCallback;
 </script>
 
-<button
-	type="button"
-	class="chip"
-	class:right={value === 1}
-	class:left={value === -1}
-	on:click={onClick}
->
-	{value > 0 ? 'Right' : 'Left'}
-</button>
+{#each box as value (value)}
+	<button
+		type="button"
+		class="chip"
+		class:right={value > 0}
+		class:left={value < 0}
+		on:click={onClick}
+		animate:flip
+		in:receive={{ key: value }}
+		out:send={{ key: value }}
+	>
+		{value > 0 ? 'Right' : 'Left'}
+	</button>
+{/each}
 
 <style lang="css">
 	.chip {
@@ -25,6 +42,7 @@
 		border: 0;
 		font-size: 0;
 		color: transparent;
+		opacity: 1 !important;
 	}
 
 	.chip.left {

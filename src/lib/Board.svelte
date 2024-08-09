@@ -1,19 +1,38 @@
 <script lang="ts">
+	import { crossfade } from 'svelte/transition';
+
 	import { type RootState } from '../game';
 
 	import Cell from './Cell.svelte';
 	import Chip from './Chip.svelte';
 
+	const [send, receive] = crossfade({});
+
 	export let state: RootState;
 	export let onMove: (index: number) => void;
+
+	$: boxes = (() => {
+		let positiveCount = 0;
+		let negativeCount = 0;
+
+		return state.map((value) => {
+			if (value > 0) {
+				return [++positiveCount];
+			}
+
+			if (value < 0) {
+				return [--negativeCount];
+			}
+
+			return [];
+		});
+	})();
 </script>
 
 <ul class="board">
-	{#each state as value, index}
+	{#each boxes as box, index}
 		<Cell>
-			{#if value !== 0}
-				<Chip {value} onClick={() => onMove(index)} />
-			{/if}
+			<Chip {box} {send} {receive} onClick={() => onMove(index)} />
 		</Cell>
 	{/each}
 </ul>
