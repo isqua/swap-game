@@ -1,1 +1,1 @@
-export { restart, move } from './game';
+export { restart, move, checkGameState, type GameState, type RootState } from './game';

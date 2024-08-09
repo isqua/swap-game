@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { initialState, move, restart, type RootState } from './game';
+import { checkGameState, desiredState, initialState, move, restart, type RootState } from './game';
 
 const playGame = (initial: RootState, moves: number[]): RootState => {
 	let currentState = initial;
@@ -77,5 +77,29 @@ describe('Game Logic', () => {
 		const initial = [-1, -1, -1, -1, 0, 1, 1, 1, 1];
 
 		checkGame(initial, initial, [0]);
+	});
+
+	it('should show win mode if game is finished', () => {
+		const game = desiredState;
+
+		expect(checkGameState(game)).toEqual('win');
+	});
+
+	it('should show loose mode if there are no more moves available', () => {
+		const game = [1, 1, 1, -1, -1, -1, -1, 0, 1];
+
+		expect(checkGameState(game)).toEqual('loose');
+	});
+
+	it('should show idle mode if game is just started', () => {
+		const game = restart();
+
+		expect(checkGameState(game)).toEqual('idle');
+	});
+
+	it('should show play mode if game is not finished', () => {
+		const actual = playGame(initialState, [3]);
+
+		expect(checkGameState(actual)).toEqual('play');
 	});
 });
