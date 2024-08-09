@@ -6,14 +6,12 @@ export const desiredState: RootState = Object.freeze([-1, -1, -1, -1, 0, 1, 1, 1
 
 export const restart = () => Array.from(initialState);
 
-const swap = (state: Readonly<RootState>, a: number, b: number) => {
-	const copy = state.slice(0);
-
-	copy[a] = state[b];
-	copy[b] = state[a];
-
-	return copy;
-};
+const swap = (state: Readonly<RootState>, a: number, b: number) =>
+	state.map((value, index, arr) => {
+		if (index === a) return arr[b];
+		if (index === b) return arr[a];
+		return value;
+	});
 
 const getDesiredIndex = (state: RootState, index: number) => {
 	// 1 can move only forward, -1 only backward
