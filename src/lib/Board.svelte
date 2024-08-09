@@ -41,32 +41,30 @@
 	.board {
 		display: flex;
 		flex-direction: row;
-		padding: 0;
 		list-style: none;
 		width: 100%;
 		height: 12vw;
 		padding: 0 1vw;
+		margin: 0;
 		box-sizing: border-box;
-		border-radius: 2vw;
+		border-radius: 0 0 2vmax 2vmax;
 		justify-content: space-around;
 		align-items: center;
 		background: #0f2027;
 		background-image: linear-gradient(to bottom, #2c5364, #203a43, #0f2027);
 		user-select: none;
 
-		--cell-size: 8vw;
-		--chip-size: 5.6vw;
+		--cell-size: 8vmax;
+		--chip-size: 5.6vmax;
 	}
 
 	@media (orientation: portrait) {
 		.board {
-			flex-direction: column;
-			height: 80vh;
+			flex-direction: column-reverse;
+			height: 100%;
 			width: 12vh;
 			padding: 1vh 0;
-
-			--cell-size: 8vh;
-			--chip-size: 5.6vh;
+			border-radius: 2vmax 0 0 2vmax;
 		}
 	}
 </style>
