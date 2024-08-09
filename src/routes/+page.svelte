@@ -53,9 +53,7 @@
 	</div>
 
 	<Status {state}>
-		{#if state !== 'idle'}
-			<button type="button" on:click={onRestart}>Restart</button>
-		{/if}
+		<button type="button" disabled={state === 'idle'} on:click={onRestart}>Restart</button>
 		<button type="button" disabled={!canUndo(history)} on:click={onUndo}>← Undo</button>
 		<button type="button" disabled={!canRedo(history)} on:click={onRedo}>Redo →</button>
 	</Status>
