@@ -60,6 +60,7 @@
 			<Action disabled={!canUndo(history)} onClick={onUndo}>← Undo</Action>
 			<Action disabled={!canRedo(history)} onClick={onRedo}>Redo →</Action>
 			<Action disabled={state === 'idle'} onClick={onRestart}>Restart</Action>
+			<Action href="https://github.com/isqua/swap-game">Source code</Action>
 		</Actions>
 	</div>
 </main>

@@ -1,16 +1,25 @@
 <script lang="ts">
+	export let href: string = '';
 	export let disabled: boolean = false;
-	export let onClick: () => void;
+	export let onClick: (() => void) | undefined = undefined;
 </script>
 
-<button type="button" {disabled} on:click={onClick} class="action">
-	<slot />
-</button>
+{#if href}
+	<a {href} on:click={onClick} class="action">
+		<slot />
+	</a>
+{:else}
+	<button type="button" {disabled} on:click={onClick} class="action">
+		<slot />
+	</button>
+{/if}
 
 <style>
 	.action {
 		font-size: inherit;
 		flex-grow: 1;
+		text-decoration: none;
+		text-align: center;
 		background-color: #d6d3d1;
 		font-weight: 500;
 		color: #292524;
