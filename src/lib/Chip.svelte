@@ -3,7 +3,13 @@
 	export let onClick;
 </script>
 
-<button type="button" class="chip {value > 0 ? 'right' : 'left'}" on:click={onClick}>
+<button
+	type="button"
+	class="chip"
+	class:right={value === 1}
+	class:left={value === -1}
+	on:click={onClick}
+>
 	{value > 0 ? 'Right' : 'Left'}
 </button>
 
