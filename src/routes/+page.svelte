@@ -1,4 +1,6 @@
 <script lang="ts">
+	import Action from '$lib/Action.svelte';
+	import Actions from '$lib/Actions.svelte';
 	import Board from '$lib/Board.svelte';
 	import Status from '$lib/Status.svelte';
 
@@ -52,11 +54,14 @@
 		<Board state={positions} onMove={moveChip} />
 	</div>
 
-	<Status {state}>
-		<button type="button" disabled={state === 'idle'} on:click={onRestart}>Restart</button>
-		<button type="button" disabled={!canUndo(history)} on:click={onUndo}>← Undo</button>
-		<button type="button" disabled={!canRedo(history)} on:click={onRedo}>Redo →</button>
-	</Status>
+	<div class="container">
+		<Status {state} />
+		<Actions>
+			<Action disabled={!canUndo(history)} onClick={onUndo}>← Undo</Action>
+			<Action disabled={!canRedo(history)} onClick={onRedo}>Redo →</Action>
+			<Action disabled={state === 'idle'} onClick={onRestart}>Restart</Action>
+		</Actions>
+	</div>
 </main>
 
 <style lang="css">
@@ -64,6 +69,13 @@
 		flex-grow: 1;
 		display: flex;
 		flex-direction: column;
+	}
+
+	.container {
+		flex-grow: 1;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
 	}
 
 	@media (orientation: portrait) {
