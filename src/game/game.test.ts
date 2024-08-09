@@ -1,15 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import { checkGameState, desiredState, initialState, move, restart, type RootState } from './game';
 
-const playGame = (initial: RootState, moves: number[]): RootState => {
-	let currentState = initial;
-
-	for (const index of moves) {
-		currentState = move(currentState, index);
-	}
-
-	return currentState;
-};
+const playGame = (initial: RootState, moves: number[]): RootState =>
+	moves.reduce((currentState, chipIndex) => move(currentState, chipIndex), initial);
 
 const checkGame = (initial: RootState, desired: RootState, moves: number[]) => {
 	const actual = playGame(initial, moves);
