@@ -44,6 +44,9 @@ const canMove = (state: RootState, index: number): boolean => {
 	return canBeOccupied(state, newIndex);
 };
 
+export const playGame = (initial: RootState, moves: number[]): RootState =>
+	moves.reduce((currentState, chipIndex) => move(currentState, chipIndex), initial);
+
 export const checkGameState = (state: RootState): GameState => {
 	if (state.join(',') === initialState.join(',')) {
 		return 'idle';
