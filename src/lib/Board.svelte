@@ -42,7 +42,7 @@
 	@media (orientation: portrait) {
 		.board {
 			flex-direction: column;
-			height: 90vh;
+			height: 80vh;
 			width: 12vh;
 			padding: 1vh 0;
 

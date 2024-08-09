@@ -25,8 +25,6 @@
 
 <style lang="css">
 	.status {
-		font-size: 16px;
-		font-family: sans-serif;
 		flex-grow: 1;
 		max-width: 40em;
 		margin: auto;
