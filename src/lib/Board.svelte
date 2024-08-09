@@ -1,21 +1,18 @@
 <script lang="ts">
-	import { move, restart } from '../game';
+	import { type RootState } from '../game';
 
 	import Cell from './Cell.svelte';
 	import Chip from './Chip.svelte';
 
-	let state = restart();
-
-	function moveChip(index: number) {
-		state = move(state, index);
-	}
+	export let state: RootState;
+	export let onMove: (index: number) => void;
 </script>
 
 <ul class="board">
 	{#each state as value, index}
 		<Cell>
 			{#if value !== 0}
-				<Chip {value} onClick={() => moveChip(index)} />
+				<Chip {value} onClick={() => onMove(index)} />
 			{/if}
 		</Cell>
 	{/each}
@@ -26,7 +23,6 @@
 		display: flex;
 		flex-direction: row;
 		padding: 0;
-		margin: 0 auto 2em;
 		list-style: none;
 		width: 100%;
 		height: 12vw;
