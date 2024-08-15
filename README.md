@@ -1,6 +1,6 @@
 # Swap Game
 
-![](./static/swap.cf2739c8.png)
+[![](./static/swap.cf2739c8.png)](https://isqua.github.io/swap-game/)
 
 I created this little game to play a little with [Svelte](https://svelte.dev). Now you can play with the balls!
 
