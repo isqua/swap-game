@@ -58,4 +58,16 @@ describe('History', () => {
 
 		expect(getEvents(state)).toEqual(['event1', 'event2']);
 	});
+
+	it('should override events when adding not to latest position', () => {
+		let state = restart<string>();
+		state = add(state, 'event1');
+		state = add(state, 'event2');
+		state = undo(state);
+		state = add(state, 'event3');
+
+		expect(getEvents(state)).toEqual(['event1', 'event3']);
+		expect(canUndo(state)).toEqual(true);
+		expect(canRedo(state)).toEqual(false);
+	});
 });

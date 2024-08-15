@@ -9,7 +9,7 @@ export const restart = <T>(): HistoryState<T> => ({
 });
 
 export const add = <T>(state: HistoryState<T>, event: T): HistoryState<T> => ({
-	events: [...state.events, event],
+	events: [...getEvents(state), event],
 	current: state.current + 1
 });
 
