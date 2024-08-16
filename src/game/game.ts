@@ -6,6 +6,13 @@ export const desiredState: RootState = Object.freeze([-1, -1, -1, -1, 0, 1, 1, 1
 
 export const restart = () => Array.from(initialState);
 
+const isEqual = (a: RootState, b: RootState): boolean =>
+	a.every((value, index) => value === b[index]);
+
+const isSameColor = (state: RootState, a: number, b: number) => state[a] === state[b];
+
+const isEmpty = (state: RootState, index: number): boolean => state[index] === 0;
+
 const swap = (state: Readonly<RootState>, a: number, b: number) =>
 	state.map((value, index, arr) => {
 		if (index === a) return arr[b];
@@ -19,40 +26,38 @@ const getDesiredIndex = (state: RootState, index: number) => {
 	const newIndex = index + direction;
 
 	// Chips can jump to 0 if it is just after different value
-	if (state[newIndex] !== 0 && state[newIndex] !== state[index]) {
+	if (!isEmpty(state, newIndex) && !isSameColor(state, index, newIndex)) {
 		return newIndex + direction;
 	}
 
 	return newIndex;
 };
 
-const canBeOccupied = (state: RootState, index: number): boolean => state[index] === 0;
-
 export const move = (state: RootState, index: number): RootState => {
 	const newIndex = getDesiredIndex(state, index);
 
-	return canBeOccupied(state, newIndex) ? swap(state, index, newIndex) : state;
+	return isEmpty(state, newIndex) ? swap(state, index, newIndex) : state;
 };
 
 export const canMove = (state: RootState, index: number): boolean => {
-	if (canBeOccupied(state, index)) {
+	if (isEmpty(state, index)) {
 		return false;
 	}
 
 	const newIndex = getDesiredIndex(state, index);
 
-	return canBeOccupied(state, newIndex);
+	return isEmpty(state, newIndex);
 };
 
 export const playGame = (initial: RootState, moves: number[]): RootState =>
 	moves.reduce((currentState, chipIndex) => move(currentState, chipIndex), initial);
 
 export const checkGameState = (state: RootState): GameState => {
-	if (state.join(',') === initialState.join(',')) {
+	if (isEqual(state, initialState)) {
 		return 'idle';
 	}
 
-	if (state.join(',') === desiredState.join(',')) {
+	if (isEqual(state, desiredState)) {
 		return 'win';
 	}
 
