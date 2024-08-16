@@ -20,34 +20,35 @@ const swap = (state: Readonly<RootState>, a: number, b: number) =>
 		return value;
 	});
 
-const getDesiredIndex = (state: RootState, index: number) => {
+const getDesiredIndex = (state: RootState, index: number): number | null => {
+	if (isEmpty(state, index)) {
+		return null;
+	}
+
 	// 1 can move only forward, -1 only backward
 	const direction = state[index];
 	const newIndex = index + direction;
 
+	if (isEmpty(state, newIndex)) {
+		return newIndex;
+	}
+
 	// Chips can jump to 0 if it is just after different value
-	if (!isEmpty(state, newIndex) && !isSameColor(state, index, newIndex)) {
+	if (!isSameColor(state, index, newIndex) && isEmpty(state, newIndex + direction)) {
 		return newIndex + direction;
 	}
 
-	return newIndex;
+	return null;
 };
 
 export const move = (state: RootState, index: number): RootState => {
 	const newIndex = getDesiredIndex(state, index);
 
-	return isEmpty(state, newIndex) ? swap(state, index, newIndex) : state;
+	return newIndex === null ? state : swap(state, index, newIndex);
 };
 
-export const canMove = (state: RootState, index: number): boolean => {
-	if (isEmpty(state, index)) {
-		return false;
-	}
-
-	const newIndex = getDesiredIndex(state, index);
-
-	return isEmpty(state, newIndex);
-};
+export const canMove = (state: RootState, index: number): boolean =>
+	getDesiredIndex(state, index) !== null;
 
 export const playGame = (initial: RootState, moves: number[]): RootState =>
 	moves.reduce((currentState, chipIndex) => move(currentState, chipIndex), initial);
