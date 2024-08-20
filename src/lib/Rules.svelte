@@ -8,6 +8,7 @@
 
 <style lang="css">
 	.rules {
+		font-size: calc(15px + 1vw);
 		max-width: 40em;
 		margin: auto;
 		padding: 2em;
