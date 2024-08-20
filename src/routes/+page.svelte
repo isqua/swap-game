@@ -4,6 +4,7 @@
 	import Board from '$lib/Board.svelte';
 	import Finish from '$lib/Finish.svelte';
 	import Rules from '$lib/Rules.svelte';
+	import { SoundController } from '$lib/SoundController';
 
 	import {
 		add,
@@ -22,6 +23,7 @@
 		type RootState
 	} from '../game';
 
+	const sounds = new SoundController();
 	let positions: RootState = restart();
 	let history: HistoryState<number> = restartHistory();
 
@@ -31,6 +33,7 @@
 		if (canMove(positions, index)) {
 			history = add(history, index);
 			positions = move(positions, index);
+			sounds.move();
 		}
 	}
 
@@ -42,11 +45,13 @@
 	function onUndo() {
 		history = undo(history);
 		positions = playGame(restart(), getEvents(history));
+		sounds.move();
 	}
 
 	function onRedo() {
 		history = redo(history);
 		positions = playGame(restart(), getEvents(history));
+		sounds.move();
 	}
 </script>
 
