@@ -20,9 +20,9 @@
 		flex-grow: 1;
 		text-decoration: none;
 		text-align: center;
-		background-color: #d6d3d1;
+		background-color: tan;
 		font-weight: 500;
-		color: #292524;
+		color: #724913;
 		border: none;
 		padding: 1em 2em;
 		border-radius: 1em;
@@ -33,8 +33,8 @@
 	}
 
 	.action:disabled {
-		background-color: #f1f5f9;
-		color: #94a3b8;
+		background-color: wheat;
+		color: tan;
 		cursor: not-allowed;
 	}
 

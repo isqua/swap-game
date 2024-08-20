@@ -18,6 +18,8 @@
 	}
 
 	:global(body) {
+		background-color: antiquewhite;
+		color: saddlebrown;
 		font-size: 16px;
 		font-family: sans-serif;
 		display: flex;
