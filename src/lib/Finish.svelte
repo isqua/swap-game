@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { scale } from 'svelte/transition';
+
 	export let state: 'win' | 'loose';
 </script>
 
@@ -11,7 +13,7 @@
 	/>
 </svelte:head>
 
-<p class="finish">
+<p class="finish" in:scale={{ duration: 300, opacity: 0, start: 3 }}>
 	{#if state === 'win'}
 		You win!
 	{:else if state === 'loose'}
