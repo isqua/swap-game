@@ -2,7 +2,8 @@
 	import Action from '$lib/Action.svelte';
 	import Actions from '$lib/Actions.svelte';
 	import Board from '$lib/Board.svelte';
-	import Status from '$lib/Status.svelte';
+	import Finish from '$lib/Finish.svelte';
+	import Rules from '$lib/Rules.svelte';
 
 	import {
 		add,
@@ -55,7 +56,11 @@
 	</div>
 
 	<div class="container">
-		<Status {state} />
+		{#if state === 'win' || state === 'loose'}
+			<Finish {state} />
+		{:else}
+			<Rules />
+		{/if}
 		<Actions>
 			<Action disabled={!canUndo(history)} onClick={onUndo}>← Undo</Action>
 			<Action disabled={!canRedo(history)} onClick={onRedo}>Redo →</Action>

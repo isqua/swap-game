@@ -1,7 +1,5 @@
 <script lang="ts">
-	import type { GameState } from '../game';
-
-	export let state: GameState;
+	export let state: 'win' | 'loose';
 </script>
 
 <svelte:head>
@@ -13,30 +11,18 @@
 	/>
 </svelte:head>
 
-<div class="status">
+<p class="finish">
 	{#if state === 'win'}
-		<p class="finish">You win!</p>
+		You win!
 	{:else if state === 'loose'}
-		<p class="finish">You loose!</p>
-	{:else}
-		<p>
-			Swap the balls! Each ball can move to an empty cell if it is adjacent. It can also jump
-			over 1 ball of a different color.
-		</p>
-		<p>The red balls can only move forward, and the white ones can only move backwards.</p>
+		You loose!
 	{/if}
-</div>
+</p>
 
 <style lang="css">
-	.status {
-		max-width: 40em;
-		margin: auto;
-		padding: 2em;
-		text-align: center;
-	}
-
 	.finish {
-		max-width: none;
+		margin: auto;
+		text-align: center;
 		font-family: 'Luckiest Guy';
 		letter-spacing: 0.05em;
 		color: #fff;
